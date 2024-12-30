@@ -61,7 +61,7 @@ public class IpAddressAuthenticatorFactory implements AuthenticatorFactory {
         ProviderConfigProperty ipProperty = new ProviderConfigProperty();
         ipProperty.setType(ProviderConfigProperty.STRING_TYPE);
         ipProperty.setName(ALLOWED_IP_ADDRESSES_CONFIG_NAME);
-        ipProperty.setLabel("Allowed IPs to skip Authorization. Type * to allow any IP address.");
+        ipProperty.setLabel("Allowed IPs to skip Authorization. Supports IPv4 and IPv6 addresses in CIDR or single format");
         ipProperty.setHelpText("Supports multiple IPs separated by commas.");
 
         ProviderConfigProperty headerProperty = new ProviderConfigProperty();

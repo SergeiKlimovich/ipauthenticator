@@ -1,5 +1,6 @@
 package com.firebird.keycloak;
 
+import com.firebird.keycloak.util.IpUtils;
 import jakarta.ws.rs.core.*;
 import org.jboss.logging.Logger;
 import org.keycloak.authentication.*;
@@ -70,13 +71,11 @@ public class IpAddressAuthenticator implements Authenticator {
 
     private UserModel getSingleUser(AuthenticationFlowContext context) {
         RealmModel realm = context.getRealm();
-        return context.getSession().users().getUserByUsername(realm, "admin");
+        return context.getSession().users().getUserByUsername(realm, "readonly");
     }
 
     private boolean isIpAllowed(String clientIp, String allowedIPs) {
-        return Arrays.stream(allowedIPs.split(","))
-            .map(String::trim)
-            .anyMatch(ip -> ip.equals(clientIp) || ip.equals("*"));
+        return IpUtils.isIpAllowed(clientIp, allowedIPs);
     }
 
     private boolean isHeaderAllowed(HttpHeaders headers, String allowedHeader) {
